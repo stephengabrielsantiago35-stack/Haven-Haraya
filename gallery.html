@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#24231f" />
+    <script>(function(){var t=localStorage.getItem("haven-theme");var q=new URLSearchParams(location.search).get("theme");var p=window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",q||t||(p?"dark":"light"))})();</script>
+    <meta name="description" content="Browse 60 listing photos of Haven Haraya — bedrooms, living spaces, kitchen, balcony, pool, and garden in City of Taguig." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Photo Gallery | Haven Haraya, Taguig" />
+    <meta property="og:description" content="Browse 60 listing photos of Haven Haraya — bedrooms, living spaces, kitchen, balcony, pool, and garden in City of Taguig." />
+    <meta property="og:image" content="https://a0.muscache.com/im/pictures/hosting/Hosting-1629801564228977399/original/ff03a03f-8a87-463f-8e38-77936d6cfa0f.jpeg" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Photo Gallery | Haven Haraya, Taguig</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="canonical" href="https://havenharaya.com/gallery.html" />
+    <link rel="preconnect" href="https://a0.muscache.com" />
+    <link rel="stylesheet" href="styles.css" />
+    <noscript><style>.page-loader { display: none !important; }</style></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  </head>
+  <body>
+    <div class="page-loader" id="page-loader" aria-hidden="true">
+      <div class="page-loader-inner">
+        <img class="page-loader-logo" src="assets/haven-haraya-logo.svg" alt="" />
+        <div class="page-loader-text">Haven Haraya</div>
+        <div class="page-loader-tag">Loading your stay</div>
+        <div class="page-loader-bar" aria-hidden="true"><div class="page-loader-bar-fill"></div></div>
+      </div>
+    </div>
+    <div class="scroll-meter" aria-hidden="true"></div>
+    <a class="skip-link" href="#top">Skip to content</a>
+    <header class="site-header page-header" data-header>
+      <a class="brand" href="index.html" aria-label="Haven Haraya home">
+        <img class="brand-logo" src="assets/haven-haraya-logo.svg" alt="" />
+        <span class="brand-text">
+          <span>Haven Haraya</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="residence.html">Residence</a>
+        <a href="amenities.html">Amenities</a>
+        <a href="gallery.html" aria-current="page">Gallery</a>
+        <a href="location.html">Location</a>
+        <a href="faq.html">FAQ</a>
+        <a href="guidebooks.html">Guidebooks</a>
+      </nav>
+      <a class="nav-action magnetic" data-magnetic-strength="0.25" href="reserve.html">Reserve</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
+      <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient audio"><i class="fa-solid fa-volume-xmark"></i></button>
+      <button class="menu-toggle" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
+    </header>
+    <nav class="nav-overlay" aria-label="Mobile navigation">
+      <a href="residence.html">Residence</a>
+      <a href="amenities.html">Amenities</a>
+      <a href="gallery.html" aria-current="page">Gallery</a>
+      <a href="location.html">Location</a>
+      <a href="faq.html">FAQ</a>
+      <a href="guidebooks.html">Guidebooks</a>
+      <a class="nav-action" href="reserve.html">Reserve</a>
+    </nav>
+
+    <main class="page-main" id="top">
+      <section class="subhero dark bg-cover" style="background-image: url(https://a0.muscache.com/im/pictures/hosting/Hosting-1629801564228977399/original/ff03a03f-8a87-463f-8e38-77936d6cfa0f.jpeg); background-position: center 25%" aria-labelledby="gallery-page-title">
+        <div class="subhero-content" data-motion-y="45">
+          <div class="subhero-copy">
+            <p class="eyebrow">Gallery</p>
+            <h1 id="gallery-page-title" data-reveal-words>Sixty photos, one quiet stay.</h1>
+            <p class="reveal-blur">Browse every room, view, and corner of Haven Haraya — from the queen bedroom and full kitchen to the pool deck and the garden at dusk.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery band" aria-labelledby="gallery-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Photos</p>
+          <h2 id="gallery-title" data-reveal-words>All photos from the Airbnb listing.</h2>
+        </div>
+
+        <div class="gallery-filters reveal" id="gallery-filters">
+          <button class="gallery-filter active" data-filter="all">All</button>
+          <button class="gallery-filter" data-filter="living">Living</button>
+          <button class="gallery-filter" data-filter="kitchen">Kitchen</button>
+          <button class="gallery-filter" data-filter="bedroom">Bedroom</button>
+          <button class="gallery-filter" data-filter="bathroom">Bathroom</button>
+          <button class="gallery-filter" data-filter="balcony">Balcony</button>
+          <button class="gallery-filter" data-filter="pool">Pool</button>
+          <button class="gallery-filter" data-filter="exterior">Exterior</button>
+        </div>
+
+        <div class="gallery-grid reveal" id="gallery-grid"></div>
+        <p class="gallery-count" id="gallery-count"></p>
+      </section>
+
+      <section class="cta-strip dark bg-cover" style="background-image: url(https://a0.muscache.com/im/pictures/hosting/Hosting-1629801564228977399/original/d33e925f-9ad8-4db4-9099-d63fc4b98114.jpeg); background-position: center 35%" aria-labelledby="gallery-cta">
+        <div data-motion-y="35">
+          <p class="eyebrow">Reserve</p>
+          <h2 id="gallery-cta">Check availability for your dates.</h2>
+        </div>
+        <a class="button primary" href="reserve.html">Reserve</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <span class="footer-name">Haven Haraya</span>
+        <span class="footer-tagline">A 2-bedroom retreat in City of Taguig</span>
+      </div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/profile.php?id=61588551930572" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/haven.haraya/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+      <a href="mailto:haven.haraya@gmail.com" class="footer-email"><i class="fa-regular fa-envelope"></i> haven.haraya@gmail.com</a>
+    </footer>
+
+    <dialog class="lightbox" data-lightbox aria-label="Image gallery">
+      <button class="lightbox-close" type="button" data-close-gallery aria-label="Close gallery"><i class="fa-solid fa-xmark"></i></button>
+      <button class="lightbox-nav prev" type="button" data-prev aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+      <img data-lightbox-image src="" alt="" />
+      <button class="lightbox-nav next" type="button" data-next aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+      <p data-lightbox-caption></p>
+      <span class="lightbox-counter" data-lightbox-counter></span>
+    </dialog>
+
+    <audio loop playsinline id="ambient-audio">
+      <source src="assets/Pufino - Naturally (freetouse.com).mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="scroll-progress-ring" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="42" />
+        <circle class="ring-fill" cx="50" cy="50" r="42" />
+      </svg>
+      <span class="ring-text">0%</span>
+    </div>
+        <aside class="sticky-cta" id="sticky-cta" aria-label="Reservation shortcut">
+      <div class="sticky-cta-inner">
+        <div class="sticky-cta-label">
+          <span class="sticky-cta-eyebrow">From</span>
+          <span class="sticky-cta-price">AED 698<small>2 nights min</small></span>
+        </div>
+        <a class="sticky-cta-button magnetic" href="reserve.html" data-cta="sticky">
+          Reserve
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </aside>
+    <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+
