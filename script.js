@@ -324,6 +324,7 @@ function applySkeleton() {
     setTimeout(() => {
       if (item && !item.classList.contains("loaded") && img.complete && img.naturalWidth > 0) reveal();
     }, 1500);
+    setTimeout(reveal, 3000);
   });
 }
 
@@ -389,7 +390,7 @@ if (statNumbers.length) {
       requestAnimationFrame(tick);
       countObserver.unobserve(el);
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
   statNumbers.forEach(el => countObserver.observe(el));
 }
 
@@ -810,23 +811,29 @@ function splitText(node, mode) {
     || node.classList.contains("visible")
     || node.closest(".visible") !== null;
   node.textContent = "";
+  let animIndex = 0;
   tokens.forEach((token, i) => {
+    if (mode === "letters" && token === " ") {
+      node.appendChild(document.createTextNode(" "));
+      return;
+    }
     const wrapper = document.createElement("span");
     wrapper.className = mode === "words" ? "word" : "letter";
     const inner = document.createElement("span");
     if (mode === "words") {
       inner.textContent = token;
     } else {
-      inner.textContent = token === " " ? "\u00A0" : token;
+      inner.textContent = token;
     }
     wrapper.appendChild(inner);
     node.appendChild(wrapper);
     if (mode === "words" && i < tokens.length - 1) {
       node.appendChild(document.createTextNode(" "));
     }
-    const delay = mode === "words" ? i * 70 : i * 25;
+    const delay = mode === "words" ? i * 70 : animIndex * 25;
     inner.style.setProperty("--word-delay", `${delay}ms`);
     inner.style.setProperty("--letter-delay", `${delay}ms`);
+    animIndex++;
     if (isAlreadyVisible) {
       inner.style.transform = "translateY(0)";
     }
