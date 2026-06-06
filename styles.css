@@ -514,13 +514,14 @@ h3 {
   padding: clamp(72px, 10vw, 140px) clamp(20px, 5vw, 72px);
 }
 
-/* 3D Z-depth parallax: needs its own perspective since body perspective
-   was removed to fix position: fixed breakage in Chrome 131+ */
-main {
+/* 3D Z-depth parallax: only the index page uses [data-depth] on .band
+   elements. We scope perspective to that element so background-attachment:
+   fixed on .bg-cover sections (which live inside <main>) keeps working —
+   ancestor perspective/transform breaks background-attachment: fixed in
+   Chrome 131+. */
+.band[data-depth] {
   perspective: 1200px;
   perspective-origin: 50% 30%;
-}
-.band[data-depth] {
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -2329,13 +2330,25 @@ main {
 
 /* ===== BACKGROUND COVER ===== */
 /* Pure CSS parallax via background-attachment: fixed — the classic Wix/Mabel
-   Cabin look. */
+   Cabin look. Falls back to scroll on iOS Safari and small viewports where
+   background-attachment: fixed is unsupported or unreliable. */
 .bg-cover {
   position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .bg-cover {
+    background-attachment: scroll;
+  }
+}
+@media (max-width: 1024px) {
+  .bg-cover {
+    background-attachment: scroll;
+  }
 }
 
 /* ===== PREFERS REDUCED MOTION ===== */
