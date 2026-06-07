@@ -1684,6 +1684,14 @@ main {
 
   .nav-links { display: none; }
 
+  .hero,
+  .subhero,
+  .band,
+  .cta-strip,
+  .bg-cover {
+    background-attachment: scroll !important;
+  }
+
   .hero {
     min-height: 100vh;
     min-height: 100svh;
@@ -3649,7 +3657,13 @@ html {
   transition-duration: .08s;
 }
 
-/* ----- KEN BURNS SLOW ZOOM (hero only) ----- */
+/* ----- KEN BURNS SLOW ZOOM (hero + subhero) -----
+   Desktop only: the slow zoom animates `background-size` between
+   110% and 130% of width, with `auto` height derived from the
+   image's aspect ratio. This works on landscape images but
+   leaves the top/bottom of portrait elements empty — so on
+   mobile we disable the animation and lock to `background-size:
+   cover` via `!important` so the image always fills the element. */
 @keyframes kenBurns {
   0%   { background-size: 110% auto; }
   100% { background-size: 130% auto; }
@@ -3657,6 +3671,13 @@ html {
 .hero,
 .subhero {
   animation: kenBurns 28s ease-in-out infinite alternate;
+}
+@media (max-width: 860px) {
+  .hero,
+  .subhero {
+    animation: none;
+    background-size: cover !important;
+  }
 }
 
 /* ----- ANIMATED GRADIENT BORDER ON FEATURED PRICING CARD ----- */
