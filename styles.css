@@ -1699,9 +1699,11 @@ h3 {
     align-items: stretch;
   }
 
-  /* bg-cover parallax uses a position: fixed ::before pseudo-element (see
-     the .bg-cover rule near the top of the file), so no mobile fallback
-     for background-attachment is needed. */
+  .hero.bg-cover,
+  .subhero.bg-cover,
+  .band.bg-cover {
+    background-attachment: scroll;
+  }
 
   .hero-content {
     padding: calc(env(safe-area-inset-top, 0px) + 120px) clamp(20px, 5vw, 72px) 24px;
