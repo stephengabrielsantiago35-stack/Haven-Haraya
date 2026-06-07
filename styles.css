@@ -55,7 +55,11 @@ body {
   color: var(--ink);
   font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.55;
-  overflow-x: hidden;
+  /* overflow-x: clip (not hidden) so background-attachment: fixed still works
+     on .bg-cover descendants — overflow: hidden on the body creates a new
+     block formatting context that Chrome uses as the "viewport" for fixed
+     backgrounds, silently disabling the parallax. */
+  overflow-x: clip;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
