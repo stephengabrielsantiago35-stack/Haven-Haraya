@@ -55,11 +55,7 @@ body {
   color: var(--ink);
   font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.55;
-  /* overflow-x: clip (not hidden) so background-attachment: fixed still works
-     on .bg-cover descendants — overflow: hidden on the body creates a new
-     block formatting context that Chrome uses as the "viewport" for fixed
-     backgrounds, silently disabling the parallax. */
-  overflow-x: clip;
+  overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -317,18 +313,6 @@ textarea {
   padding-bottom: 140px;
 }
 
-/* On mobile the hero-floats are display:none, so the only reason for
-   overflow:hidden is to clip decorative shapes — but the same rule clips
-   the .bg-cover::before position:fixed pseudo-element on iOS Safari
-   (known bug: position:fixed descendants of overflow:hidden ancestors
-   get clipped to the ancestor's box). Override on mobile so the fixed
-   parallax layer can extend to the viewport. */
-@media (max-width: 860px) {
-  .hero.bg-cover {
-    overflow: visible;
-  }
-}
-
 .hero-media,
 .hero-shade {
   position: absolute;
@@ -530,14 +514,13 @@ h3 {
   padding: clamp(72px, 10vw, 140px) clamp(20px, 5vw, 72px);
 }
 
-/* 3D Z-depth parallax: only the index page uses [data-depth] on .band
-   elements. We scope perspective to that element so background-attachment:
-   fixed on .bg-cover sections (which live inside <main>) keeps working —
-   ancestor perspective/transform breaks background-attachment: fixed in
-   Chrome 131+. */
-.band[data-depth] {
+/* 3D Z-depth parallax: needs its own perspective since body perspective
+   was removed to fix position: fixed breakage in Chrome 131+ */
+main {
   perspective: 1200px;
   perspective-origin: 50% 30%;
+}
+.band[data-depth] {
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -1711,12 +1694,6 @@ h3 {
     align-items: stretch;
   }
 
-  .hero.bg-cover,
-  .subhero.bg-cover,
-  .band.bg-cover {
-    background-attachment: scroll;
-  }
-
   .hero-content {
     padding: calc(env(safe-area-inset-top, 0px) + 120px) clamp(20px, 5vw, 72px) 24px;
     flex: 1 1 auto;
@@ -2220,16 +2197,10 @@ h3 {
   h1 {
     font-size: 1.7rem;
     line-height: 1;
-    width: 100%;
-    max-width: 100vw;
-    overflow: hidden;
   }
 
   h2 {
     font-size: 1.2rem;
-    width: 100%;
-    max-width: 100vw;
-    overflow: hidden;
   }
 
   .subhero h1 {
@@ -2241,12 +2212,7 @@ h3 {
   }
 
   .section-heading h2 {
-    font-size: 1.1rem;
-    line-height: 1.25;
-    overflow-wrap: break-word;
-    width: 100%;
-    max-width: 100vw;
-    overflow: hidden;
+    font-size: 1.85rem;
   }
 
   .tab-panel h3,
@@ -2346,25 +2312,13 @@ h3 {
 
 /* ===== BACKGROUND COVER ===== */
 /* Pure CSS parallax via background-attachment: fixed — the classic Wix/Mabel
-   Cabin look. Falls back to scroll on iOS Safari and small viewports where
-   background-attachment: fixed is unsupported or unreliable. */
+   Cabin look. */
 .bg-cover {
   position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
-
-@supports (-webkit-touch-callout: none) {
-  .bg-cover {
-    background-attachment: scroll;
-  }
-}
-@media (max-width: 1024px) {
-  .bg-cover {
-    background-attachment: scroll;
-  }
 }
 
 /* ===== PREFERS REDUCED MOTION ===== */
@@ -2392,9 +2346,6 @@ h3 {
     transform: none !important;
     filter: none !important;
   }
-
-  .reveal-mask-up::before { display: none !important; }
-  .gallery-grid-item.loading img { opacity: 1 !important; }
 }
 
 .bg-cover::before {
@@ -3021,7 +2972,7 @@ body.no-scroll .site-header:not(.page-header) {
   margin-top: 24px;
 }
 
-.gallery-grid-item.loading img { opacity: 1; }
+.gallery-grid-item.loading img { opacity: 0; }
 .gallery-grid-item.loaded img { opacity: 1; transition: opacity .3s ease; }
 
 /* ===== INLINE LINK ===== */
@@ -3296,25 +3247,19 @@ body.no-scroll .site-header:not(.page-header) {
 
 /* ----- TEXT REVEAL: WORD-BY-WORD ----- */
 .reveal-words {
-  display: block;
-  max-width: 100%;
-  overflow-wrap: break-word;
+  display: inline-block;
 }
 .reveal-words .word {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
   max-width: 100%;
-  overflow-wrap: break-word;
 }
 .reveal-words .word > span {
   display: inline-block;
   transform: translateY(110%);
   transition: transform 700ms cubic-bezier(.2,.7,.2,1);
   transition-delay: var(--word-delay, 0ms);
-  overflow-wrap: break-word;
-  word-break: break-all;
-  max-width: 100%;
 }
 .reveal-words.visible .word > span {
   transform: translateY(0);
@@ -4010,3 +3955,4 @@ html {
     transform: none;
   }
 }
+
