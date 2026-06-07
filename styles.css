@@ -2333,65 +2333,15 @@ h3 {
 }
 
 /* ===== BACKGROUND COVER ===== */
-/* Pure CSS parallax that works on desktop AND mobile.
-   We use a position: fixed ::before pseudo-element that inherits the
-   section's background-image URL. As the page scrolls, the pseudo-element
-   stays anchored to the viewport while the section scrolls past — creating
-   the classic Wix/Mabel Cabin drift on every browser/device.
-
-   We deliberately do NOT use background-attachment: fixed because:
-   - iOS Safari ignores it
-   - Chrome on Android ignores it on most viewports
-   - It gets demoted to scroll when an ancestor has perspective/transform
-
-   The ::before sits at z-index: -1 inside the section's stacking context
-   (which sits in front of the section's own background), so the section's
-   own background-image is hidden by the fixed pseudo-element. The ::after
-   provides the dark gradient overlay that previously lived on ::before. */
+/* Pure CSS parallax via background-attachment: fixed — the classic Wix/Mabel
+   Cabin look. Falls back to scroll on iOS Safari and small viewports where
+   background-attachment: fixed is unsupported or unreliable. */
 .bg-cover {
   position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.bg-cover::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100svh;
-  background-image: inherit;
-  background-size: cover;
-  background-position: inherit;
-  background-repeat: no-repeat;
-  z-index: -1;
-  pointer-events: none;
-  /* Promote to its own compositor layer so the fixed positioning is
-     smooth on mobile (avoids jank when scrolling past .bg-cover sections). */
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-.bg-cover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(23,23,23,0.76) 0%,
-    rgba(23,23,23,0.28) 50%,
-    rgba(23,23,23,0.04) 100%
-  );
-  z-index: 0;
-  pointer-events: none;
-}
-
-.bg-cover > * {
-  position: relative;
-  z-index: 1;
+  background-attachment: fixed;
 }
 
 @supports (-webkit-touch-callout: none) {
