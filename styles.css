@@ -1692,6 +1692,41 @@ main {
     background-attachment: scroll !important;
   }
 
+  /* Mobile background-image parallax
+     - Real `background-attachment: fixed` doesn't work on iOS Safari /
+       Android Chrome, so we move the image to a `::after` pseudo-element
+       and translate it on scroll via a CSS variable updated in JS.
+     - Stacking: `::after` (image) at z-index 0 → `::before` (gradient)
+       at z-index 1 → content at z-index 2. Bumping the gradient and
+       content z-index above the image is needed because the element
+       itself has `background-color: var(--charcoal)` (e.g. the hero)
+       that would otherwise paint over a z-index:-1 pseudo-element.
+     - `scale(1.2)` adds headroom so the image still covers the element
+       after translation (the `overflow: hidden` on `.bg-cover` clips
+       the rest). */
+  .bg-cover {
+    overflow: hidden;
+  }
+  .bg-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg-url, none);
+    background-size: cover;
+    background-position: var(--bg-pos, center);
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+    transform: scale(1.2) translate3d(0, var(--parallax-y, 0), 0);
+  }
+  .bg-cover::before {
+    z-index: 1 !important;
+  }
+  .bg-cover > * {
+    z-index: 2 !important;
+  }
+
   .hero {
     min-height: 100vh;
     min-height: 100svh;
