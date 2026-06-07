@@ -930,6 +930,75 @@ function initParallax() {
   update();
 }
 
+// 4b) Mobile background-image parallax
+// `background-attachment: fixed` doesn't work on iOS Safari / Android
+// Chrome, so on mobile we move the image from the `.bg-cover` element
+// to a `::after` pseudo-element (via CSS variables set here) and
+// translate it on scroll at a different rate than the page. The image
+// is scaled 1.2x in CSS to give the parallax room to move.
+function initMobileBgParallax() {
+  const els = document.querySelectorAll(".bg-cover");
+  if (!els.length) return;
+
+  const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
+
+  // Cache the original inline background-image / position once.
+  els.forEach(el => {
+    if (!el.dataset.origBg) {
+      const cs = getComputedStyle(el);
+      el.dataset.origBg = cs.backgroundImage;
+      el.dataset.origPos = cs.backgroundPosition;
+    }
+  });
+
+  let rafId = null;
+  function update() {
+    rafId = null;
+    const scrollY = window.scrollY;
+    els.forEach(el => {
+      const speed = parseFloat(el.dataset.parallaxSpeed) || 0.4;
+      // speed=0 → image stays fixed in viewport (CSS fixed-equivalent)
+      // speed=1 → image moves with page (no parallax)
+      // speed=0.4 → image moves at 40% of page scroll speed
+      el.style.setProperty("--parallax-y", `${(scrollY * (1 - speed)).toFixed(2)}px`);
+    });
+  }
+  function onScroll() {
+    if (rafId == null) rafId = requestAnimationFrame(update);
+  }
+
+  function apply() {
+    if (isMobile() && !prefersReducedMotion) {
+      els.forEach(el => {
+        el.style.setProperty("--bg-url", el.dataset.origBg);
+        el.style.setProperty("--bg-pos", el.dataset.origPos);
+        // Hide the element's own background — the ::after handles it.
+        el.style.backgroundImage = "none";
+      });
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+      update();
+    } else {
+      // Restore the element's original background; let the desktop
+      // `background-attachment: fixed` rule take over. We must restore
+      // the cached URL (not set to "") because setting to "" would
+      // remove the entire `background-image` declaration from the
+      // inline `style` attribute.
+      els.forEach(el => {
+        el.style.removeProperty("--bg-url");
+        el.style.removeProperty("--bg-pos");
+        el.style.removeProperty("--parallax-y");
+        if (el.dataset.origBg) el.style.backgroundImage = el.dataset.origBg;
+      });
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    }
+  }
+
+  apply();
+  window.addEventListener("resize", apply);
+}
+
 // 5) Magnetic buttons
 function initMagnetic() {
   if (prefersReducedMotion) return;
@@ -972,6 +1041,7 @@ function initWixEffects() {
   initGenericReveals();
   initStaggerReveal();
   initParallax();
+  initMobileBgParallax();
   initMagnetic();
   initColorTint();
 }
