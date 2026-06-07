@@ -3998,3 +3998,71 @@ html {
     transform: none;
   }
 }
+/* =============================================================
+   CSS-ONLY MOBILE BACKGROUND SCROLL EFFECT
+   - Uses CSS Grid and transform for smooth scrolling backgrounds
+   - No JavaScript required
+   ============================================================= */
+
+@media (max-width: 860px) {
+  /* Mobile scroll effect container */
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Create a scroll wrapper for hero background */
+  .hero-media {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    transition: transform 0.1s linear;
+    will-change: transform;
+  }
+  
+  /* Smooth parallax using scroll-driven animations (modern browsers) */
+  @supports (animation-timeline: scroll()) {
+    .hero-media {
+      animation: mobileParallax linear;
+      animation-timeline: scroll();
+      animation-range: 0% 100%;
+    }
+    
+    @keyframes mobileParallax {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-8%);
+      }
+    }
+  }
+  
+  /* Fallback for browsers without scroll-driven animations */
+  @supports not (animation-timeline: scroll()) {
+    .hero-media {
+      position: sticky;
+      top: 0;
+      transform: translateZ(0);
+    }
+  }
+  
+  /* Additional mobile background enhancements */
+  .bg-cover {
+    background-attachment: scroll !important;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Smooth background transition on scroll for band sections */
+  .band {
+    transition: background-position 0.1s linear;
+  }
+  
+  /* Hero overlay fade on scroll (pure CSS) */
+  .hero-shade {
+    transition: opacity 0.05s linear;
+  }
+}
