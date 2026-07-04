@@ -1,0 +1,12 @@
+.git/
+node_modules/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+.env
+.wrangler/
+.preview/
+AGENTS.md
+serve.mjs
